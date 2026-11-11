@@ -33,8 +33,8 @@ public class VerificationActivity extends AppCompatActivity {
         Intent recu = getIntent();
         final String nom = recu.getStringExtra(CleIntent.cleNom(m));
         int naissance = recu.getIntExtra(CleIntent.cleNaissance(m), 0);
-        int destination = recu.getIntExtra(CleIntent.cleDestination(m), 0);
-        String motif = recu.getStringExtra(CleIntent.cleMotif(m));
+        final int destination = recu.getIntExtra(CleIntent.cleDestination(m), 0);
+        final String motif = recu.getStringExtra(CleIntent.cleMotif(m));
 
         // l'age temporel = l'année de destination - l'année de naissance
         // (ya3ni qaddech yebda 3andou 3omr kif yousel lel destination)
@@ -45,6 +45,7 @@ public class VerificationActivity extends AppCompatActivity {
         tvAge.setText("Âge temporel : " + ageTemporel + " ans");
         tvTrajet.setText("Trajet : " + naissance + " → " + destination);
         tvMotif.setText("Motif : " + motif);
+
         // n3amrou numéro passeport kime je (TT-1000 hatta TT-9999)
         int numero = 1000 + new Random().nextInt(9000);
         tvNumero.setText(getString(R.string.label_numero, "TT-" + numero));
@@ -58,19 +59,21 @@ public class VerificationActivity extends AppCompatActivity {
             tvAlerte.setVisibility(View.VISIBLE);
         }
 
-        // bouton Approuver -> verdict = true
-        btnApprouver.setOnClickListener(v -> ouvrirResultat(true, nom));
+        // bouton Approuver -> verdict = true (nab3thou zeda destination w motif)
+        btnApprouver.setOnClickListener(v -> ouvrirResultat(true, nom, destination, motif));
 
-        // bouton Refuser -> verdict = false
-        btnRefuser.setOnClickListener(v -> ouvrirResultat(false, nom));
+        // bouton Refuser -> verdict = false (nab3thou zeda destination w motif)
+        btnRefuser.setOnClickListener(v -> ouvrirResultat(false, nom, destination, motif));
     }
 
-    // methode elli tlanci l activité 3 b intent explicite w tbaath el verdict + el nom
-    private void ouvrirResultat(boolean approuve, String nom) {
+    // methode elli tlanci l activité 3 w tbaath el verdict + el nom + destination + motif
+    private void ouvrirResultat(boolean approuve, String nom, int destination, String motif) {
         String m = CleIntent.MATRICULE;
         Intent intent = new Intent(VerificationActivity.this, ResultActivity.class);
         intent.putExtra(CleIntent.cleVerdict(m), approuve);
         intent.putExtra(CleIntent.cleNom(m), nom);
+        intent.putExtra(CleIntent.cleDestination(m), destination);
+        intent.putExtra(CleIntent.cleMotif(m), motif);
         startActivity(intent);
     }
 
