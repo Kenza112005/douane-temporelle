@@ -16,6 +16,12 @@ Application Android simulant un poste de douane pour voyageurs du temps (3 activ
 2. VerificationActivity : passeport + boutons Approuver / Refuser
 3. ResultActivity : verdict (fond vert ou rouge) + bouton "Nouveau voyageur"
 
+## Fonctionnalités supplémentaires
+
+- Message d'alerte "Paradoxe détecté" quand l'approbation est bloquée
+- Numéro de passeport aléatoire sur le billet
+- Validation des années (entre 1800 et 3000)
+
 ## Contraintes respectées
 
 - Intents explicites
