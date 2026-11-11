@@ -27,5 +27,6 @@
     <string name="err_champs">Remplis tous les champs !</string>
     <string name="err_motif">Choisis un motif de voyage !</string>
     <string name="err_annees">L\'année de destination doit être après la naissance !</string>
+    <string name="err_plage">Les années doivent être entre 1800 et 3000 !</string>
     <string name="alerte_paradoxe">⚠ Paradoxe détecté : saut interdit</string>
 </resources>

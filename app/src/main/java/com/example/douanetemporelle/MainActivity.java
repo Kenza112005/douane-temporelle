@@ -59,6 +59,12 @@ public class MainActivity extends AppCompatActivity {
         int naissance = Integer.parseInt(naissanceStr);
         int destination = Integer.parseInt(destinationStr);
 
+        // 3.5) nverifiw el années 9rib lel waqe3 (binet 1800 w 3000)
+        if (naissance < 1800 || destination > 3000) {
+            Toast.makeText(this, R.string.err_plage, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         // 4) l'année de destination lazem tkoun akbar men naissance
         if (destination <= naissance) {
             Toast.makeText(this, R.string.err_annees, Toast.LENGTH_SHORT).show();
