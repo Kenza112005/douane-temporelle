@@ -84,6 +84,15 @@
             android:textStyle="bold"
             android:visibility="gone" />
 
+        <TextView
+            android:id="@+id/tv_numero_kz"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_alerte_kz"
+            android:layout_marginTop="12dp"
+            android:textColor="@color/brun_kz"
+            android:textSize="14sp" />
+
         <Button
             android:id="@+id/btn_refuser_kz"
             android:layout_width="match_parent"

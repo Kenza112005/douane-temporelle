@@ -5,12 +5,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import java.util.Random;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class VerificationActivity extends AppCompatActivity {
 
-    private TextView tvNom, tvAge, tvTrajet, tvMotif, tvAlerte;
+    private TextView tvNom, tvAge, tvTrajet, tvMotif, tvAlerte, tvNumero;
     private Button btnApprouver, btnRefuser;
 
     @Override
@@ -23,6 +24,7 @@ public class VerificationActivity extends AppCompatActivity {
         tvTrajet = findViewById(R.id.tv_trajet_kz);
         tvMotif = findViewById(R.id.tv_motif_kz);
         tvAlerte = findViewById(R.id.tv_alerte_kz);
+        tvNumero = findViewById(R.id.tv_numero_kz);
         btnApprouver = findViewById(R.id.btn_approuver_kz);
         btnRefuser = findViewById(R.id.btn_refuser_kz);
 
@@ -45,11 +47,11 @@ public class VerificationActivity extends AppCompatActivity {
         tvMotif.setText("Motif : " + motif);
 
         // CONDITION KHASSA: motif = "Modification du passé" W el far9 premier
-        // ya3ni el bouton Approuver yet3attal (disabled) men awel ma yetfta7 el écran
+        // ya3ni el bouton Approuver yet3attal (disabled) men awel ma yet7al el écran
         boolean modificationPasse = motif.equals(getString(R.string.motif_modification));
         if (modificationPasse && estPremier(ageTemporel)) {
             btnApprouver.setEnabled(false);
-            // nthahrou rissala 7amra bech el douanier ya3ref 3lech el bouton mou3attal
+            // nthahrou message a7mer bech el douanier ya3ref 3lech el bouton mayekhdemch
             tvAlerte.setVisibility(View.VISIBLE);
         }
 
