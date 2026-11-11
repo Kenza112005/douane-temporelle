@@ -45,6 +45,9 @@ public class VerificationActivity extends AppCompatActivity {
         tvAge.setText("Âge temporel : " + ageTemporel + " ans");
         tvTrajet.setText("Trajet : " + naissance + " → " + destination);
         tvMotif.setText("Motif : " + motif);
+        // n3amrou numéro passeport kime je (TT-1000 hatta TT-9999)
+        int numero = 1000 + new Random().nextInt(9000);
+        tvNumero.setText(getString(R.string.label_numero, "TT-" + numero));
 
         // CONDITION KHASSA: motif = "Modification du passé" W el far9 premier
         // ya3ni el bouton Approuver yet3attal (disabled) men awel ma yet7al el écran
