@@ -21,6 +21,8 @@ Application Android simulant un poste de douane pour voyageurs du temps (3 activ
 - Message d'alerte "Paradoxe détecté" quand l'approbation est bloquée
 - Numéro de passeport aléatoire sur le billet
 - Validation des années (entre 1800 et 3000)
+- Affichage de la destination et du motif sur l'écran du verdict
+- - Statistiques (voyageurs approuvés / refusés) sur l'écran d'accueil
 
 ## Contraintes respectées
 

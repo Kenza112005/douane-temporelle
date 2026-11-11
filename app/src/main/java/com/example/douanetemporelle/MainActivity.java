@@ -7,6 +7,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -32,6 +33,14 @@ public class MainActivity extends AppCompatActivity {
 
         // kif nenzlou 3al bouton nlanciw el methode inspecter
         btnInspecter.setOnClickListener(v -> inspecter());
+    }
+    // kol mara nraj3ou lel écran loula n7addthou el statistiques
+    @Override
+    protected void onResume() {
+        super.onResume();
+        TextView tvStats = findViewById(R.id.tv_stats_kz);
+        tvStats.setText(getString(R.string.stats,
+                Statistiques.getApprouves(), Statistiques.getRefuses()));
     }
 
     private void inspecter() {

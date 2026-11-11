@@ -12,6 +12,7 @@
     <string name="motif_modification">Modification du passé</string>
     <string name="motif_fuite">Fuite</string>
     <string name="btn_inspecter">Inspecter le profil</string>
+    <string name="stats">Approuvés : %1$d | Refusés : %2$d</string>
 
     <!-- Activité 2 -->
     <string name="titre_billet">PASSEPORT TEMPOREL</string>

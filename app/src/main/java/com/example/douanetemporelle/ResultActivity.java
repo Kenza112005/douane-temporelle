@@ -7,86 +7,51 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
-import java.util.Random;
-
-public class VerificationActivity extends AppCompatActivity {
-
-    private TextView tvNom, tvAge, tvTrajet, tvMotif, tvAlerte, tvNumero;
-    private Button btnApprouver, btnRefuser;
+public class ResultActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_verification);
+        setContentView(R.layout.activity_result);
 
-        tvNom = findViewById(R.id.tv_nom_kz);
-        tvAge = findViewById(R.id.tv_age_kz);
-        tvTrajet = findViewById(R.id.tv_trajet_kz);
-        tvMotif = findViewById(R.id.tv_motif_kz);
-        tvAlerte = findViewById(R.id.tv_alerte_kz);
-        tvNumero = findViewById(R.id.tv_numero_kz);
-        btnApprouver = findViewById(R.id.btn_approuver_kz);
-        btnRefuser = findViewById(R.id.btn_refuser_kz);
+        View root = findViewById(R.id.root_result_kz);
+        TextView tvMessage = findViewById(R.id.tv_message_kz);
+        TextView tvDetails = findViewById(R.id.tv_details_kz);
+        Button btnNouveau = findViewById(R.id.btn_nouveau_kz);
 
-        // nejbdou el données eli jéw mel activité 1 (bnafs el clés)
+        // nejbdou el verdict (boolean) w el nom men l'intent
         String m = CleIntent.MATRICULE;
-        Intent recu = getIntent();
-        final String nom = recu.getStringExtra(CleIntent.cleNom(m));
-        final int naissance = recu.getIntExtra(CleIntent.cleNaissance(m), 0);
-        final int destination = recu.getIntExtra(CleIntent.cleDestination(m), 0);
-        final String motif = recu.getStringExtra(CleIntent.cleMotif(m));
+        boolean approuve = getIntent().getBooleanExtra(CleIntent.cleVerdict(m), false);
+        String nom = getIntent().getStringExtra(CleIntent.cleNom(m));
 
-        // l'age temporel = l'année de destination - l'année de naissance
-        int ageTemporel = destination - naissance;
+        // nejbdou el destination w el motif zeda bech nwarriwhom
+        int destination = getIntent().getIntExtra(CleIntent.cleDestination(m), 0);
+        String motif = getIntent().getStringExtra(CleIntent.cleMotif(m));
+        tvDetails.setText(getString(R.string.details_resultat, destination, motif));
 
-        // n7ottou el données fil passeport
-        tvNom.setText("Nom : " + nom);
-        tvAge.setText("Âge temporel : " + ageTemporel + " ans");
-        tvTrajet.setText("Trajet : " + naissance + " → " + destination);
-        tvMotif.setText("Motif : " + motif);
-
-        // n3amrou numéro passeport 3achwa2i (TT-1000 hatta TT-9999)
-        int numero = 1000 + new Random().nextInt(9000);
-        tvNumero.setText(getString(R.string.label_numero, "TT-" + numero));
-
-        // CONDITION KHASSA: motif = "Modification du passé" W el far9 premier
-        // ya3ni el bouton Approuver yet3attal (disabled) men awel ma yetfta7 el écran
-        boolean modificationPasse = motif.equals(getString(R.string.motif_modification));
-        if (modificationPasse && estPremier(ageTemporel)) {
-            btnApprouver.setEnabled(false);
-            // nthahrou rissala 7amra bech el douanier ya3ref 3lech el bouton mou3attal
-            tvAlerte.setVisibility(View.VISIBLE);
+        if (approuve) {
+            // approuvé -> fond vert + message "Bon voyage"
+            root.setBackgroundColor(ContextCompat.getColor(this, R.color.vert_kz));
+            tvMessage.setText(getString(R.string.msg_approuve, nom));
+        } else {
+            // refusé -> fond rouge + message arrestation
+            root.setBackgroundColor(ContextCompat.getColor(this, R.color.rouge_kz));
+            tvMessage.setText(getString(R.string.msg_refuse, nom));
         }
 
-        // bouton Approuver -> verdict = true
-        btnApprouver.setOnClickListener(v -> ouvrirResultat(true, nom, destination, motif));
-
-        // bouton Refuser -> verdict = false
-        btnRefuser.setOnClickListener(v -> ouvrirResultat(false, nom, destination, motif));
-    }
-
-    // methode elli tlanci l activité 3 w tbaath el verdict + el nom + destination + motif
-    private void ouvrirResultat(boolean approuve, String nom, int destination, String motif) {
-        String m = CleIntent.MATRICULE;
-        Intent intent = new Intent(VerificationActivity.this, ResultActivity.class);
-        intent.putExtra(CleIntent.cleVerdict(m), approuve);
-        intent.putExtra(CleIntent.cleNom(m), nom);
-        intent.putExtra(CleIntent.cleDestination(m), destination);
-        intent.putExtra(CleIntent.cleMotif(m), motif);
-        startActivity(intent);
-    }
-
-    // methode tchouf ken el 3adad premier (ya9bel el 9isma ken 3al 1 w 3al rou7ou)
-    private boolean estPremier(int n) {
-        if (n < 2) {
-            return false; // 0 w 1 mouch premiers
+        // nsajlou el verdict fil statistiques (ken awel mara, mouch ba3d rotation)
+        if (savedInstanceState == null) {
+            Statistiques.enregistrer(approuve);
         }
-        for (int i = 2; i * i <= n; i++) {
-            if (n % i == 0) {
-                return false; // l9ina 9asem -> mouch premier
-            }
-        }
-        return true; // ma l9inech 9asem -> premier
+
+        btnNouveau.setOnClickListener(v -> {
+            // nraj3ou lel MainActivity w nsakrou kol les activités li 9balha
+            // NEW_TASK + CLEAR_TASK = nfas5ou el pile mta3 les activités lkol
+            Intent intent = new Intent(ResultActivity.this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        });
     }
 }
