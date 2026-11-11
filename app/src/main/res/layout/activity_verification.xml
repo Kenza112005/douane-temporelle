@@ -73,6 +73,16 @@
             android:layout_marginTop="12dp"
             android:textColor="@color/black"
             android:textSize="16sp" />
+        <TextView
+            android:id="@+id/tv_alerte_kz"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_motif_kz"
+            android:layout_marginTop="16dp"
+            android:text="@string/alerte_paradoxe"
+            android:textColor="@color/rouge_kz"
+            android:textStyle="bold"
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/btn_refuser_kz"

@@ -2,6 +2,7 @@ package com.example.douanetemporelle;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -9,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class VerificationActivity extends AppCompatActivity {
 
-    private TextView tvNom, tvAge, tvTrajet, tvMotif;
+    private TextView tvNom, tvAge, tvTrajet, tvMotif, tvAlerte;
     private Button btnApprouver, btnRefuser;
 
     @Override
@@ -21,6 +22,7 @@ public class VerificationActivity extends AppCompatActivity {
         tvAge = findViewById(R.id.tv_age_kz);
         tvTrajet = findViewById(R.id.tv_trajet_kz);
         tvMotif = findViewById(R.id.tv_motif_kz);
+        tvAlerte = findViewById(R.id.tv_alerte_kz);
         btnApprouver = findViewById(R.id.btn_approuver_kz);
         btnRefuser = findViewById(R.id.btn_refuser_kz);
 
@@ -47,6 +49,8 @@ public class VerificationActivity extends AppCompatActivity {
         boolean modificationPasse = motif.equals(getString(R.string.motif_modification));
         if (modificationPasse && estPremier(ageTemporel)) {
             btnApprouver.setEnabled(false);
+            // nthahrou rissala 7amra bech el douanier ya3ref 3lech el bouton mou3attal
+            tvAlerte.setVisibility(View.VISIBLE);
         }
 
         // bouton Approuver -> verdict = true
